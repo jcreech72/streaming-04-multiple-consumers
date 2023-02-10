@@ -61,3 +61,6 @@ See a running example with at least 3 concurrent process windows here:
 The first screenshot shows the two producers and two listeners. The second screenshot shows how the producer was the VS Code terminal. It also participated in sending, and the listeners received them via a round robin method.
 ![Screenshot Creech Ex1_a](https://user-images.githubusercontent.com/89232631/217982154-b4f4f79f-f104-4e42-a047-91aacd85bfb8.jpg)
 ![Screenshot Creech Ex1_b](https://user-images.githubusercontent.com/89232631/217982228-a053ed8c-f84c-48d6-845f-93852c8f9804.jpg)
+
+V2_Emitter and V2_Listening -- much easier to change the message - did it within the call code verses having to change the origional python file. I note that the oririgional file is not changed by the message I put in the terminal. It was much easier to run this . It also used a round robin format of sending the message. 
+![Screenshot Creech Ex2_a](https://user-images.githubusercontent.com/89232631/217985537-ef448acf-80e3-4ec0-afeb-14de2e3afc4b.jpg)
