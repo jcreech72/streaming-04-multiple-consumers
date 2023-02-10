@@ -33,7 +33,7 @@ Explore the RabbitMQ website.
 
 1. Run listening_worker.py
 
-Will it terminate on its own? How do you know? 
+Will it terminate on its own? How do you know?  No it will not because the code indicates you must Ctrl+C to exit.
 
 ## Ready for Work
 
@@ -45,9 +45,9 @@ Will it terminate on its own? How do you know?
 
 Follow the tutorial. 
 Add multiple tasks (e.g. First message, Second message, etc.)
-How are tasks distributed? 
+How are tasks distributed? I opened two listeners and two producers. Round Robin was how the listeners received the packages no matter if it was sent from producer 1, 2 or 3 (including the VSCode terminal as well). 
 Monitor the windows with at least two workers. 
-Which worker gets which tasks?
+Which worker gets which tasks? It is round robin, so they take turns.
 
 
 ## Reference
@@ -58,3 +58,6 @@ Which worker gets which tasks?
 ## Screenshot
 
 See a running example with at least 3 concurrent process windows here:
+The first screenshot shows the two producers and two listeners. The second screenshot shows how the producer was the VS Code terminal. It also participated in sending, and the listeners received them via a round robin method.
+![Screenshot Creech Ex1_a](https://user-images.githubusercontent.com/89232631/217982154-b4f4f79f-f104-4e42-a047-91aacd85bfb8.jpg)
+![Screenshot Creech Ex1_b](https://user-images.githubusercontent.com/89232631/217982228-a053ed8c-f84c-48d6-845f-93852c8f9804.jpg)
