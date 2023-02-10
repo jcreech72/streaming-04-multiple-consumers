@@ -4,6 +4,10 @@ Creates and sends a task message to the queue each execution.
 This process runs and finishes. 
 Make tasks harder/longer-running by adding dots at the end of the message.
 
+Code edits by Julie Creech to create multiple producers. Had to comment out code as this was a single producer. Used the mutliple lines to allow a change. When I tried running
+the code with nothing commented out, it would only run the first and last lines each time run. 
+Feb 2023
+
 Approach
 ---------
 Work Queues - one task producer / many workers sharing work.
@@ -11,9 +15,11 @@ Work Queues - one task producer / many workers sharing work.
 
 """
 
+from site import addusersitepackages
 import pika
 import sys
 import webbrowser
+
 
 def offer_rabbitmq_admin_site():
     """Offer to open the RabbitMQ Admin website"""
@@ -21,6 +27,7 @@ def offer_rabbitmq_admin_site():
     print()
     if ans.lower() == "y":
         webbrowser.open_new("http://localhost:15672/#/queues")
+       
         print()
 
 # call the function defined above
@@ -36,7 +43,11 @@ channel = connection.channel()
 # messages will not be deleted until the consumer acknowledges
 channel.queue_declare(queue="task_queue", durable=True)
 # create a message by joining the command line arguments
-message = " ".join(sys.argv[1:]) or "First task..."
+#message = " ".join(sys.argv[1:]) or "First task..."
+#message = " ".join(sys.argv[2:]) or "Second task..."
+#message = " ".join(sys.argv[3:]) or "Third task..."
+message = " ".join(sys.argv[4:]) or "dumbest task..."
+#message = " ".join(sys.argv[5:]) or "Fifth task..."
 # publish the message to the queue
 channel.basic_publish(
     exchange="",

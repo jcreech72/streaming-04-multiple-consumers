@@ -1,5 +1,16 @@
 """
-    This program sends a message to a queue on the RabbitMQ server.
+    This program is being used to develop code prior to using it in the normal file.
+    
+    This program sends a message to a queue on the RabbitMQ server after reading a csv file called tasks.csv.
+    Will import the CsvReader class from the csv_reader.py module.
+    Also imports socket to get the hostname of the computer running the program.
+    Will import the time module to use the sleep function to simulate work.
+    Pika imports are used to connect to the RabbitMQ server and send messages.
+    Sys is used to get the command line arguments.
+    Webbrowser is used to open the RabbitMQ Admin site.
+
+    Screen shots in Readme.md
+
     Make tasks harder/longer-running by adding dots at the end of the message.
 
     Author: Julie Creech
@@ -10,15 +21,22 @@
 import pika
 import sys
 import webbrowser
+import csv
+import socket
+import time
 
+# Offer to open the RabbitMQ Admin website
 def offer_rabbitmq_admin_site():
     """Offer to open the RabbitMQ Admin website"""
-    ans = input("Would you like to monitor RabbitMQ queues? y or n ")
-    print()
-    if ans.lower() == "y":
+    show_offer = False
+    #print()
+    if show_offer == "True":
+        ans = input("Would you like to monitor RabbitMQ queues? y or n ")
+        print()
         webbrowser.open_new("http://localhost:15672/#/queues")
         print()
 
+# Defines message sending function
 def send_message(host: str, queue_name: str, message: str):
     """
     Creates and sends a message to the queue each execution.
@@ -29,7 +47,47 @@ def send_message(host: str, queue_name: str, message: str):
         queue_name (str): the name of the queue
         message (str): the message to be sent to the queue
     """
+    host = "localhost"
+    port = 9999
+    address_tuple = (host, port)
 
+# create a socket family for IPv4
+    socket_family = socket.AF_INET
+
+# create a socket type for UDP 
+    socket_type = socket.SOCK_DGRAM
+
+# Use enumerated types to create a socket object
+    sock = socket.socket(socket_family, socket_type)
+
+# Read from file to get data
+    input_file = open("tasks.csv", "r")
+
+# Reverse Sort the file --pulling this out for now
+   # reversed = sorted(input_file)
+
+# Create a csv reader from input_file
+    reader = csv.reader(input_file, delimiter=',')
+
+# Read the first line of the file
+    for row in reader:
+
+#read a row from file
+        input_file.read
+        #fstring to print the row
+        fstring_message = f"{row}"
+
+        # send the message to the server
+        message = fstring_message.encode()
+
+        #use the socket to send the message to the server
+        sock.sendto(message, address_tuple)
+        # print a message to the console for the user
+        print(f" [x] Sent {message}")
+        # sleep for 5 second to simulate work
+        time.sleep(5)
+
+        
     try:
         # create a blocking connection to the RabbitMQ server
         conn = pika.BlockingConnection(pika.ConnectionParameters(host))
@@ -61,8 +119,9 @@ if __name__ == "__main__":
     offer_rabbitmq_admin_site()
     # get the message from the command line
     # if no arguments are provided, use the default message
-    # use the join method to convert the list of arguments into a string
+    # use the join method to convert the list of arguments into a stringy
     # join by the space character inside the quotes
-    message = " ".join(sys.argv[1:]) or "Twenty-third task................"
+    message = " ".join(sys.argv[1:]) or "Hello World!"
+    message = " ".join(sys.argv[1:]) or "{message}"
     # send the message to the queue
-    send_message("localhost","task_queue2",message)
+    send_message("localhost","task_queue3",message)
